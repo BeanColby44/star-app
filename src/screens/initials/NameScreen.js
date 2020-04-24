@@ -1,9 +1,10 @@
 import React from "react";
-import {StyleSheet, View} from "react-native";
-import {Button, Headline, Text, TextInput} from "react-native-paper";
+import {StyleSheet, View, TextInput} from "react-native";
+import {Button, Headline, Text, TextInput as PaperTextInput} from "react-native-paper";
 import {DefaultView} from "../../components/containers";
 import Logo from "../../svgs/Logo";
 import Constellation from "../../svgs/Constellation";
+import Aquarius from "../../svgs/Aquarius";
 
 /**
  * @param navigation
@@ -12,11 +13,15 @@ import Constellation from "../../svgs/Constellation";
  */
 function NameScreen({navigation}) {
     const [name, setName] = React.useState();
+    const buttonDisabled = !name || name.length < 2;
     return (
-        <DefaultView style={{zIndex: 1}}>
+        <DefaultView>
+            <Aquarius width={80} height={80} style={styles.aquarius}/>
             <Constellation height={250} width={250} style={styles.constellation}/>
             <View style={styles.counterContainer}>
-                <Text style={styles.counterText}>1/5</Text>
+                <View style={styles.counterView}>
+                    <Text style={styles.counterText}>1/5</Text>
+                </View>
             </View>
             <View style={{flex: 1}}/>
             <View style={styles.textContainer}>
@@ -27,19 +32,22 @@ function NameScreen({navigation}) {
             <View style={styles.logoContainer}>
                 <Logo width={70} height={70}/>
             </View>
-
             <View style={styles.inputContainer}>
-                <TextInput
+                <PaperTextInput
                     value={name}
                     onChangeText={(text) => setName(text)}
-                    textAlign='center'
-                    autoFocus={true}
                     style={styles.inputStyle}
                     underlineColor='#ffffff00'
+                    render={props => <TextInput {...props} style={{
+                        textAlign: 'center',
+                        marginTop: 10,
+                        color: 'white',
+                        fontSize: 30
+                    }}/>}
                 />
             </View>
             <View style={styles.buttonContainer}>
-                <Button mode="contained" disabled={!name} onPress={() => navigation.push('BirthDate')}>Continue</Button>
+                <Button mode="contained" disabled={buttonDisabled} onPress={() => navigation.push('BirthDate')}>Continue</Button>
             </View>
         </DefaultView>
     );
@@ -47,28 +55,40 @@ function NameScreen({navigation}) {
 
 const styles = StyleSheet.create({
     constellation: {
-        zIndex: 0, position: 'absolute', bottom: 20, left: 20, opacity: 0.5
+        zIndex: 0, position: 'absolute', bottom: 20, left: 20, opacity: 0.1
     },
-    counterContainer: {position: 'absolute', top: 20, left: 20},
-    counterText: {padding: 5, backgroundColor: '#00000050', borderRadius: 5},
+    aquarius: {
+        zIndex: 0, position: 'absolute', top: 20, right: 20, opacity: 0.2
+    },
+    counterContainer: {
+        position: 'absolute', top: 20, left: 20
+    },
+    counterView: {
+        padding: 5, borderRadius : 5, backgroundColor: '#00000050'
+    },
+    counterText : {
+        letterSpacing: 2
+    },
     textContainer: {
         flex: 1, alignSelf: 'center', paddingHorizontal: 20
     },
     textHeadline: {
-        textAlign: 'center', textTransform: 'uppercase'
+        textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold'
     },
     textText: {
         textAlign: 'center', paddingVertical: 5
     },
     logoContainer: {
-        flex: 1, alignSelf: 'center', paddingVertical: 25, zIndex: 1
+        flex: 1, alignSelf: 'center', paddingVertical: 40, zIndex: 1
     },
     inputContainer: {
         flex: 1, paddingHorizontal: 20, opacity: 0.9
     },
-    inputStyle: {borderRadius: 5, textAlign: 'center'},
+    inputStyle: {
+        borderRadius: 5,  fontSize: 30, textAlign: 'center',
+    },
     buttonContainer: {
-        flex: 1, paddingHorizontal: 20, paddingTop: 35
+        flex: 1, paddingHorizontal: 20, paddingTop: 35, justifyContent : 'flex-end', marginBottom: 20
     }
 })
 
