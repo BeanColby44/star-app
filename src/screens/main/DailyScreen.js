@@ -5,6 +5,10 @@ import {DefaultScrollView} from "../../components/containers";
 import {Backgrounds, Zodiac} from "../../svgs";
 import {useGlobals} from "../../contexts/Global";
 import {ThemeUtils} from "../../utils";
+import {Sign} from "../../components/zodiac";
+import ShadowHeadline from "../../components/paper/ShadowHeadline";
+import {useIsDark} from "../../hooks/useTheme";
+import i18n from "i18n-js";
 
 /**
  * @param navigation
@@ -12,16 +16,15 @@ import {ThemeUtils} from "../../utils";
  * @constructor
  */
 function DailyScreen({navigation}) {
-    const [{theme}] = useGlobals();
     return (
         <React.Fragment>
-            <Backgrounds.Stars style={styles.backgroundStars}/>
-            <DefaultScrollView barStyle={ThemeUtils.isDark(theme) ? 'light-content' : 'dark-content'}>
+            <DefaultScrollView barStyle={useIsDark() ? 'light-content' : 'dark-content'}>
+                <Backgrounds.Stars style={styles.backgroundStars}/>
                 <View style={styles.headerContainer}>
-                    <Zodiac.Aquarius width={80}/>
-                    <Headline style={styles.headerHeadline}>
-                        Aquarius
-                    </Headline>
+                    <Sign sign="Aquarius" showTitle={false} signWidth={80} signHeight={80}/>
+                    <ShadowHeadline style={styles.headerHeadline}>
+                        {i18n.t('Aquarius')}
+                    </ShadowHeadline>
                     <Subheading>
                         Wednesday, 29 april, 2020
                     </Subheading>
@@ -29,7 +32,7 @@ function DailyScreen({navigation}) {
                 <View style={styles.surfaceContainer}>
                     <Surface style={styles.surfaceSurface}>
                         <Button icon="heart" style={styles.surfaceButton}
-                                labelStyle={styles.surfaceButtonLabel}>Love</Button>
+                                labelStyle={styles.surfaceButtonLabel}>{i18n.t('Love')}</Button>
                         <Paragraph style={styles.surfaceParagraph}>
                             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
                             of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
@@ -42,7 +45,7 @@ function DailyScreen({navigation}) {
                 <View style={styles.surfaceContainer}>
                     <Surface style={styles.surfaceSurface}>
                         <Button icon="briefcase" style={styles.surfaceButton}
-                                labelStyle={styles.surfaceButtonLabel}>Work</Button>
+                                labelStyle={styles.surfaceButtonLabel}>{i18n.t('Work')}</Button>
                         <Paragraph style={styles.surfaceParagraph}>
                             It has roots in a piece
                             of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
@@ -55,7 +58,7 @@ function DailyScreen({navigation}) {
                 <View style={styles.surfaceContainer}>
                     <Surface style={styles.surfaceSurface}>
                         <Button icon="food-apple" style={styles.surfaceButton}
-                                labelStyle={styles.surfaceButtonLabel}>Health</Button>
+                                labelStyle={styles.surfaceButtonLabel}>{i18n.t('Health')}</Button>
                         <Paragraph style={styles.surfaceParagraph}>
                             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
                             of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,
@@ -66,54 +69,41 @@ function DailyScreen({navigation}) {
                 <View style={styles.surfaceContainer}>
                     <Surface style={styles.surfaceSurface}>
                         <Button style={styles.surfaceButton}
-                                labelStyle={styles.surfaceButtonLabel}>Today you
-                            love</Button>
+                                labelStyle={styles.surfaceButtonLabel}>{i18n.t('Today you love')}</Button>
                         <View style={styles.bottomThreeContainer}>
-                            <View style={{alignItems: 'center'}}>
-                                <Zodiac.Scorpio width={100}/>
-                                <Title>Scorpio</Title>
-                            </View>
-                            <View style={{alignItems: 'center'}}>
-                                <Zodiac.Pisces width={100}/>
-                                <Title>Piscis</Title>
-                            </View>
+                            <Sign sign={'Scorpio'} signHeight={100} styleTitle={{fontSize: 20, marginTop: 15}}/>
+                            <Sign sign={'Taurus'} signHeight={100} styleTitle={{fontSize: 20, marginTop: 15}}/>
                         </View>
                     </Surface>
                 </View>
                 <View style={styles.surfaceContainer}>
                     <Surface style={styles.surfaceSurface}>
                         <Button style={styles.surfaceButton}
-                                labelStyle={styles.surfaceButtonLabel}>Today you
-                            hate</Button>
+                                labelStyle={styles.surfaceButtonLabel}>{i18n.t('Today you hate')}</Button>
                         <View style={styles.bottomThreeContainer}>
-                            <View style={{alignItems: 'center'}}>
-                                <Zodiac.Libra width={100}/>
-                                <Title>Libra</Title>
-                            </View>
-                            <View style={{alignItems: 'center'}}>
-                                <Zodiac.Leo width={100}/>
-                                <Title>Leo</Title>
-                            </View>
+                            <Sign sign={'Libra'} signHeight={100} styleTitle={{fontSize: 20, marginTop: 15}}/>
+                            <Sign sign={'Leo'} signHeight={100} styleTitle={{fontSize: 20, marginTop: 15}}/>
                         </View>
                     </Surface>
                 </View>
                 <View style={styles.surfaceContainer}>
                     <Surface style={styles.surfaceSurface}>
                         <Button style={styles.surfaceButton}
-                                labelStyle={styles.surfaceButtonLabel}>Lucky numbers</Button>
+                                labelStyle={styles.surfaceButtonLabel}>{i18n.t('Lucky numbers')}</Button>
                         <View style={styles.bottomThreeContainer}>
                             <View style={{alignItems: 'center'}}>
-                                <Title style={{fontSize: 30}}>25</Title>
+                                <Title style={{fontSize: 26}}>25</Title>
                             </View>
                             <View style={{alignItems: 'center'}}>
-                                <Title style={{fontSize: 30}}>6</Title>
+                                <Title style={{fontSize: 26}}>6</Title>
                             </View>
                             <View style={{alignItems: 'center'}}>
-                                <Title style={{fontSize: 30}}>32</Title>
+                                <Title style={{fontSize: 26}}>32</Title>
                             </View>
                         </View>
                     </Surface>
                 </View>
+                <View style={{height: 20}}/>
             </DefaultScrollView>
         </React.Fragment>
 
@@ -122,19 +112,19 @@ function DailyScreen({navigation}) {
 
 const styles = StyleSheet.create({
     backgroundStars: {
-        zIndex: 0, position: 'absolute', top: 20, right: 20, opacity: 0.2
+        zIndex: 1, position: 'absolute', top: 20, right: 20, opacity: 0.15
     },
     headerContainer: {
-        alignItems: 'center', justifyContent: 'center', marginHorizontal: 20
+        alignItems: 'center', justifyContent: 'center', marginHorizontal: 20, marginVertical: 20
     },
     headerHeadline: {
-        fontWeight: 'bold', fontSize: 30
+        fontWeight: 'bold', fontSize: 30, lineHeight: 34, marginTop: 10
     },
     surfaceContainer: {
         marginTop: 20, marginHorizontal: 20
     },
     surfaceSurface: {
-        padding: 20, borderRadius: 10
+        padding: 20, borderRadius: 10, elevation: 3
     },
     surfaceButton: {
         marginTop: -5, marginBottom: 10
@@ -143,7 +133,7 @@ const styles = StyleSheet.create({
         fontSize: 20, fontWeight: 'bold', letterSpacing: 4
     },
     surfaceParagraph: {
-        fontSize: 15, lineHeight: 22, letterSpacing: 1,
+        fontSize: 14, lineHeight: 22, letterSpacing: 1,
     },
     bottomThreeContainer: {
         flexDirection: 'row', justifyContent: 'space-around'
