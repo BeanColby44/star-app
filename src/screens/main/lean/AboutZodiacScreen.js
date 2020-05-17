@@ -1,7 +1,8 @@
 import React from 'react';
-import {Dimensions, Image, SafeAreaView, StyleSheet, View} from 'react-native';
+import {Dimensions, Image, ScrollView, StyleSheet, View} from 'react-native';
 import SpaceSky from "../../../components/decorations/SpaceSky";
-import {Text, useTheme} from "react-native-paper";
+import {Text} from "react-native-paper";
+import i18n from "i18n-js";
 
 /**
  * @param navigation
@@ -9,33 +10,33 @@ import {Text, useTheme} from "react-native-paper";
  * @constructor
  */
 function AboutZodiacScreen({navigation}) {
-    const {colors} = useTheme();
-
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <ScrollView style={{flex: 1, paddingVertical: 20}}>
             <SpaceSky/>
             <View style={{marginHorizontal: 20}}>
                 <Text>
-                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                    classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin
-                    professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words,
-                    consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical
-                    literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
-                    of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This
-                    book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of
-                    Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                </Text>
-                <Text>
-                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                    Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in
-                    their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                    {i18n.t('ab_zo_1')}
                 </Text>
             </View>
-            <Image style={{width: Dimensions.get('window').width, height: 250}} source={{uri : 'https://lh3.googleusercontent.com/zFwzo3mS8o47KuJj3HWBAKjB0Aem__fbxIu1U1sD47DtYQ5SddBKXwLIodIO24qpWS51vuCldw=w640-h400-e365'}} />
-        </SafeAreaView>
+            <Image style={styles.image} source={require('./images/ab_zo_1.jpg')}/>
+            <View style={{marginHorizontal: 20}}>
+                <Text>
+                    {i18n.t('ab_zo_2')}
+                </Text>
+            </View>
+            <Image style={styles.image} source={require('./images/ab_zo_2.jpg')}/>
+            <View style={{marginHorizontal: 20}}>
+                <Text>
+                    {i18n.t('ab_zo_3')}
+                </Text>
+            </View>
+            <View style={{height: 30}}/>
+        </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    image: {width: Dimensions.get('window').width, height: 200, marginVertical: 20}
+});
 
 export default AboutZodiacScreen;
